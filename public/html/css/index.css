@@ -1,0 +1,10 @@
+.list-box {
+  background-color: #ffffff;
+}
+.list-box .list-item {
+  position: relative;
+  border-top: 1px solid #dddddd;
+}
+.list-box .list-item:first-child {
+  border-top: none;
+}

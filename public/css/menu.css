@@ -1,0 +1,22 @@
+.menu-container {
+  background-color: #ffffff;
+  border-bottom: 1px solid #dddddd;
+}
+.menu-container .menu-item {
+  position: relative;
+  font-size: 12px;
+}
+.menu-container .menu-item .right {
+  position: absolute;
+  top: 0px;
+  right: 25px;
+  border: none !important;
+}
+.menu-container .menu-item .content {
+  padding: 12px 10px 12px 0px;
+  margin-left: 15px;
+  border-bottom: 1px solid #dddddd;
+}
+.menu-container .menu-item:last-child .content {
+  border-bottom: none;
+}

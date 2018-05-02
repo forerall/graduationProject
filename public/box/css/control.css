@@ -1,0 +1,192 @@
+
+.r-toolbar {
+    margin-bottom: 10px;
+}
+
+/*分页*/
+.page-bar{width: 100%;margin: 10px 0px;}
+.page-bar >ul {list-style: none;margin: 0;padding: 0;}
+.page-bar >ul >li{display: inline-block;margin: 0 3px;}
+.page-bar >ul >li >a{padding: 3px 10px;border: 1px solid #dddddd;border-radius: 5px;cursor: pointer;text-decoration: none;color: #000000}
+.page-bar >ul >li >span.current{background-color: rgb(0,165,255);color: #ffffff !important;border-color: rgb(0,165,255);padding: 3px 10px;border-radius: 3px;}
+.page-bar >ul >li >span{padding: 3px;}
+.page-bar >ul >li >input{padding: 3px;width: 50px}
+.now-page{background-color: rgb(0,165,255)}
+.page-jump{cursor: pointer;color: rgb(0,165,255)}
+
+
+/*上传*/
+.image-container .upload-container{
+    padding: 5px 0px;
+}
+.upload-progress{
+    display: none;
+    height: 3px;
+    background-color: #00b7ee;
+}
+.upload-btn{
+    cursor: pointer;
+}
+.image-container .upload-preview{
+    cursor: pointer;
+}
+.file-container .upload-preview{
+    cursor: pointer;
+    padding: 5px;
+    border:1px solid #ddd;
+    border-radius: 3px;
+}
+.upload-preview > img{
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    padding: 1px;
+    box-sizing: content-box;
+    min-width: 40px;
+    min-height: 23px;
+}
+.upload-btn{
+    width: 60px;
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 3px 10px;
+    border-radius: 2px;
+    margin-right: 0px !important;
+}
+.image-container .upload-preview > div{
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.img-item{
+    position: relative;
+}
+.img-item-close{
+    position: absolute;
+    right: -6px;
+    top: -7px;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    border-radius: 9px;
+    background-color: red;
+    color: #ffffff;
+    line-height: 18px;
+    cursor: pointer;
+}
+
+.banner-container .upload-preview > div{
+    margin-right: 15px;
+    margin-bottom: 20px;
+}
+.banner-container .img-item-container{
+    border: 1px solid #dddddd;
+    padding: 10px;
+    border-radius: 3px;
+    position: relative;
+}
+.banner-container .img-item-container > div{
+    display: inline-block;
+    vertical-align: top;
+}
+.banner-container .img-item-container .options p{
+    margin-top: 5px;
+}
+.banner-container .img-item-container .options{
+    margin-left: 10px;
+}
+.banner-container .img-item-container .options label,.banner-container .img-item-container .options select{
+    font-size: 12px;
+}
+.banner-container .img-item-container .options input{
+    width: 375px;
+}
+/*地区选择*/
+.address-container > select{
+    min-width: 80px;
+    padding: 3px 0px;
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+
+/* 列表 */
+.list{}
+.list td{
+    vertical-align: middle !important;
+}
+.list .avatar{
+}
+.list .avatar >div{
+    display: inline-block;
+    vertical-align: middle;
+}
+.list .avatar >div:first-child img{
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid #FFFFFF;
+    box-sizing: content-box;
+}
+.list .goods-image img{
+    width: 60px;
+    height: 60px;
+}
+.no-record{
+    text-align: center;
+    color: #888888;
+    padding: 30px 0px !important;
+}
+
+
+/* 弹出框*/
+.modal-form-pop{
+    position:fixed;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    background-color:#ccc;
+    filter:alpha(opacity=30);
+    opacity:0.3;
+    z-index:1000;
+}
+.modal-form{
+    position: fixed;
+    z-index: 1001;
+    min-width: 400px;
+    border: 1px solid #c6c6c6;
+    border-radius: 5px;
+    background-color: #ffffff;
+    left: 50%;
+    top: 50%;
+    box-shadow: 4px 10px 20px #aaaaaa;
+}
+.form-title-bar{
+    height: 30px;
+    border-bottom: 1px solid #c6c6c6;
+    position: relative;
+    cursor: move;
+    background: url(../images/dialog-title-bg.png) repeat-x bottom;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.title-content{
+    padding: 0px 3%;
+    line-height: 30px;
+    font-size: 14px;
+}
+.form-close{
+    position: absolute !important;
+    right: 5px;
+    top: 0px;
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 20px;
+}
+.form-body{padding: 10px 0px;}
+.form-body-content{padding: 0px 2%;overflow-y: auto}
+.loading{vertical-align: middle;text-align: center;margin-top: 50px;}

@@ -1,0 +1,22 @@
+.Wdate{
+	background:#fff url(datePicker.gif) no-repeat right;
+	-moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+	border-color: #cccccc #cccccc #cccccc -moz-use-text-color;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 14px;
+    font-weight: lighter;
+    height: 22px;
+    line-height: 22px;
+    outline: medium none;
+}
+.Wdate::-ms-clear{display:none;}
+
+.WdateFmtErr{
+	font-weight:bold;
+	color:red;
+}

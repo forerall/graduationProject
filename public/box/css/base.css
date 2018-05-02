@@ -1,0 +1,32 @@
+.avatar-img{
+    width: 60px;
+    height: 60px;
+    border-radius: 5px;
+}
+
+
+
+/* 覆盖bootstrap*/
+table p{
+    margin: 0px !important;
+}
+.tags{
+    width: 100% !important;
+}
+
+.profile-info-row:first-child .profile-info-value{
+    min-height: 31px;
+}
+tr.selected td{
+    background-color: #f9f9f9;
+}
+.pagination{
+    margin: 0px;
+}
+.row-margin{
+   margin-top: 10px;
+    margin-bottom: 10px;
+}
+.row-margin span{
+    margin-right: 10px;
+}
