@@ -79,8 +79,9 @@
         <div class="home-cover">
             <div class="swiper-container">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img style="width: 100%;" src="/img/banner_4.png" class=""></div>
-                    <div class="swiper-slide"><img style="width: 100%;" src="/img/banner_3.png" class=""></div>
+                    <div class="swiper-slide"><img style="width: 100%;" src="/images/b1.jpg" class=""></div>
+                    <div class="swiper-slide"><img style="width: 100%;" src="/images/b2.PNG" class=""></div>
+		    		     <div class="swiper-slide"><img style="width: 100%;" src="/images/b4.jpg" class=""></div>
                 </div>
             </div>
 
