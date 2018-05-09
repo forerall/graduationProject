@@ -32,7 +32,7 @@
                             <label class="control-label col-xs-12 col-sm-1 no-padding-right" for="avatar">房间</label>
                             <div class="col-xs-12 col-sm-11">
                                     <select name="room_id">
-                                        @foreach(\App\Models\Room::where('password', '<>', '')->where('state',1)->get() as $room)
+                                        @foreach(\App\Models\Room::get() as $room)
                                             <option value="{{$room->id}}">{{$room->name}}</option>
                                         @endforeach
                                     </select>

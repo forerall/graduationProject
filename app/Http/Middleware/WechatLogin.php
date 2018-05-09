@@ -90,6 +90,16 @@ class WechatLogin
             exit('已禁用！');
         }
         $u = Auth::user();
+        if ($recommend_user_id == $u->id || $u->proxy == 1) {
+            $recommend_user_id = 0;
+        }
+        if ($recommend_user_id2 == $u->id || $u->proxy == 1 || $u->proxy == 2) {
+            $recommend_user_id2 = 0;
+        }
+        if ($recommend_user_id1 == $u->id || $u->proxy == 1 || $u->proxy == 2 || $u->proxy == 3) {
+            $recommend_user_id1 = 0;
+        }
+        
         if (empty($u->recommend_user_id) && $recommend_user_id) {
             $u->recommend_user_id = $recommend_user_id;
         }

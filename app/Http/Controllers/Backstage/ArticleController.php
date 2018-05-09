@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Backstage;
 use App\Tools\Output;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Article;
 
 class ArticleController extends Controller
 {

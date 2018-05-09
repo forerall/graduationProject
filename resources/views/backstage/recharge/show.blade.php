@@ -26,7 +26,7 @@
                         <div class="profile-info-row">
                             <div class="profile-info-name">用户ID</div>
                             <div class="profile-info-value">
-                                <span class="">{{$item->user->id}}</span>
+                                <span class="">{{$item->user?$item->user->id:''}}</span>
                             </div>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                         <div class="profile-info-row">
                             <div class="profile-info-name">用户</div>
                             <div class="profile-info-value">
-                                <span class="">{{$item->user->nickname}}</span>
+                                <span class="">{{$item->user?$item->user->nickname:''}}</span>
                             </div>
                         </div>
                     </div>

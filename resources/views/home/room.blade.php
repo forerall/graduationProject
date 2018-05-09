@@ -92,9 +92,7 @@
                     <div class="input-label">包数</div>
                     <div class="input-content">
                         <select name="packets">
-                            <option value="5">5包</option>
-                            <option value="6">6包</option>
-                            <option value="7">7包</option>
+                           
                             <option value="8">8包</option>
                             <option value="9">9包</option>
                             <option value="10">10包</option>
