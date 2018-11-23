@@ -121,8 +121,7 @@
                                                     class="icon-zoom-in bigger-130"></i></a>
                                         <a class="green editBtn" href="/backstage/user/{{$item->id}}/edit{{request('type')==1?'?type=1':''}}"><i
                                                     class="icon-pencil bigger-130"></i></a>
-                                        <a class="red delBtn" href="javascript:void(0)"><i
-                                                    class="icon-trash bigger-130"></i></a>
+                                        
                                         <a class="red jyBtn" href="javascript:void(0)">
                                             @if($item->state == 0)
                                                 禁用

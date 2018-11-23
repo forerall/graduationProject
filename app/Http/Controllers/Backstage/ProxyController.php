@@ -4,9 +4,6 @@ namespace App\Http\Controllers\Backstage;
 
 use App\Services\BalanceService;
 use App\Services\GameService;
-use App\Tool\WeiboConnect;
-use App\Service\SmsService;
-use App\Tool\QQConnect;
 use App\Tools\Output;
 use App\User;
 use Illuminate\Http\Request;
