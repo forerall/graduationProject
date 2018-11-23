@@ -45,7 +45,7 @@ class Robot extends Command
      */
     public function handle()
     {
-        try {
+        try{
             for ($i = 0; $i < 6; $i++) {
                 $s = date('s');
                 if ($s < 55) {
@@ -55,7 +55,7 @@ class Robot extends Command
                 }
             }
 
-        } catch (\Exception $e) {
+        }catch(\Exception $e){
             Log::error($e);
         }
 
@@ -70,7 +70,7 @@ class Robot extends Command
             $robot = User::where('type', 1)->where('room_id', $room->id)->where('balance', '>', 50000)->inRandomOrder()->first();
             if ($robot) {
                 $money = $room->min + intval(($room->max - $room->min) * mt_rand(1, 9) / 1000) * 100;
-                $game->putPacket($room->id, $robot->id, $money, mt_rand(1, 9), mt_rand(5, 10), '恭喜发财');
+                $game->putPacket($room->id, $robot->id, $money, mt_rand(1, 9), mt_rand(8, 10), '恭喜发财');
             }
         }
         //自动抢

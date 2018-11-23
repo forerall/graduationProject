@@ -50,7 +50,7 @@ class GameService
     public function getSubUserList($request, $user_id)
     {
         $list = User::where('recommend_user_id', $user_id)
-            ->orderBy('id', 'desc')->paginate(10);
+            ->orderBy('id', 'desc')->paginate(1000);
         $list->appends($request->except('page', 'per_page'));
         return $list;
     }
@@ -126,7 +126,7 @@ class GameService
     }
 
     //发
-    public function putPacket($room_id, $user_id, $money, $lei, $packets, $msg = '')
+    public function putPacket($room_id, $user_id, $money, $lei, $packets,$msg = '')
     {
         $money = intval($money);
         $room = Room::findOrFail($room_id);
@@ -229,6 +229,7 @@ class GameService
             $p->got = 0;//已抢数量
             $p->got_money = 0;//已抢金额
             $p->msg = $msg;
+            $p->max_packet = mt_rand(1, $packets);
             $p->day = date('Ymd', time());
             $p->save();
             $this->balanceService->pay($user_id, $money, '发红包');
@@ -286,12 +287,13 @@ class GameService
             if ($setting->value > 0 && $user->rate == 0) {
                 $user->rate = max(1, 95 - $setting->value/10);
             }
-	    $user->rate += $packet->packets/2;
-            $r = mt_rand(5, 30);
-            if ($r <= 3) {
-                // $r = mt_rand(2, 18);
+            $user->rate += 5;//$packet->packets/2;
+            $r = mt_rand(1, 20);
+            if ($packet->max_packet == $packet->got) {
+                $r = mt_rand(20, 35);
             }
-            $leiRate = mt_rand(1, 100) ;
+
+            $leiRate = mt_rand(1, 100);
             if ($user->rate > 0 && $leiRate > $user->rate && $packet->lei > -1 && $packet->lei < 10) {
 
                 //有设置胜率

@@ -451,80 +451,80 @@ body, html {
 }
 
 .htab-box {
-    @keyframes arrow-down {
-        from {
-            transform: translateY(-50%) rotateZ(0deg);
-        }
-        to {
-            transform: translateY(-50%) rotateZ(90deg);
-        }
-    }
+     @keyframes arrow-down {
+         from {
+             transform: translateY(-50%) rotateZ(0deg);
+         }
+         to {
+             transform: translateY(-50%) rotateZ(90deg);
+         }
+     }
 
-    @-moz-keyframes arrow-down /* Firefox */
-    {
-        from {
-            transform: translateY(-50%) rotateZ(0deg);
-        }
-        to {
-            transform: translateY(-50%) rotateZ(90deg);
-        }
-    }
+     @-moz-keyframes arrow-down /* Firefox */
+     {
+         from {
+             transform: translateY(-50%) rotateZ(0deg);
+         }
+         to {
+             transform: translateY(-50%) rotateZ(90deg);
+         }
+     }
 
-    @-webkit-keyframes arrow-down /* Safari 和 Chrome */
-    {
-        from {
-            transform: translateY(-50%) rotateZ(0deg);
-        }
-        to {
-            transform: translateY(-50%) rotateZ(90deg);
-        }
-    }
+     @-webkit-keyframes arrow-down /* Safari 和 Chrome */
+     {
+         from {
+             transform: translateY(-50%) rotateZ(0deg);
+         }
+         to {
+             transform: translateY(-50%) rotateZ(90deg);
+         }
+     }
 
-    @-o-keyframes arrow-down /* Opera */
-    {
-        from {
-            transform: translateY(-50%) rotateZ(0deg);
-        }
-        to {
-            transform: translateY(-50%) rotateZ(90deg);
-        }
-    }
-    .htab-item {
-        background-color: #ffffff;
-        .htab-title {
-            position: relative;
-            padding: 0.5rem;
-            border-bottom: 1px solid #dddddd;
-            i {
-                font-size: 1.2rem;
-                position: absolute;
-                right: 0.5rem;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-        }
-        .htab-content {
-            display: none;
-            padding: 0 0.5rem 0.5rem 0.5rem;
-            img {
-                width: 80%;
-                margin: 0 auto;
-                display: block;
-            }
-        }
-        &.active .htab-content {
-            display: block;
-            border-bottom: 1px solid #dddddd;
-        }
-        &.active .htab-title i {
-            animation: arrow-down 0.5s;
-            -moz-animation: arrow-down 0.5s; /* Firefox */
-            -webkit-animation: arrow-down 0.5s; /* Safari 和 Chrome */
-            -o-animation: arrow-down 0.5s; /* Opera */
-            transform: translateY(-50%) rotateZ(90deg);
-        }
-    }
-}
+     @-o-keyframes arrow-down /* Opera */
+     {
+         from {
+             transform: translateY(-50%) rotateZ(0deg);
+         }
+         to {
+             transform: translateY(-50%) rotateZ(90deg);
+         }
+     }
+     .htab-item {
+         background-color: #ffffff;
+         .htab-title {
+             position: relative;
+             padding: 0.5rem;
+             border-bottom: 1px solid #dddddd;
+             i {
+                 font-size: 1.2rem;
+                 position: absolute;
+                 right: 0.5rem;
+                 top: 50%;
+                 transform: translateY(-50%);
+             }
+         }
+         .htab-content {
+             display: none;
+             padding: 0 0.5rem 0.5rem 0.5rem;
+             img {
+                 width: 80%;
+                 margin: 0 auto;
+                 display: block;
+             }
+         }
+         &.active .htab-content {
+             display: block;
+             border-bottom: 1px solid #dddddd;
+         }
+         &.active .htab-title i {
+             animation: arrow-down 0.5s;
+             -moz-animation: arrow-down 0.5s; /* Firefox */
+             -webkit-animation: arrow-down 0.5s; /* Safari 和 Chrome */
+             -o-animation: arrow-down 0.5s; /* Opera */
+             transform: translateY(-50%) rotateZ(90deg);
+         }
+     }
+ }
 
 .hongbao {
     display: none;

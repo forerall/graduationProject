@@ -2,7 +2,7 @@
 
 return [
 
-    'testenv' => false,
+    'testenv' => true,
     'appmode' => 'wechat',
     'useThirdWxLogin' => true,//使用其他公众号授权登陆
     /*
