@@ -93,10 +93,16 @@ Route::group([
         'middleware' => ['wechat', 'auth']  //wechat 自动登录微信
     ], function () {
         Route::get('/', 'HomeController@index');
+        Route::get('/user', 'HomeController@user');
+        Route::get('/wj', 'HomeController@wj');
+        Route::get('/sl', 'HomeController@sl');
+        Route::get('/code', 'HomeController@code');
+
+
         Route::get('/pass', 'HomeController@pass');
         Route::get('/roomList', 'HomeController@roomList');
         Route::get('/roomList2', 'HomeController@roomList2');
-        Route::get('/user', 'HomeController@user');
+
         Route::get('/roomPage', 'HomeController@roomPage');
         Route::get('/checkGetPacketStatus', 'HomeController@checkGetPacketStatus');
         Route::get('/getPacket', 'HomeController@getPacket');

@@ -1,0 +1,115 @@
+.top {
+  background: #1C1C1C;
+  color: #ffffff;
+  font-size: 0;
+  padding: 3rem 0.5rem 0.5rem;
+}
+.top > div {
+  display: inline-block;
+  font-size: 0.6rem;
+  vertical-align: top;
+  width: 33.33%;
+}
+.top .box > div {
+  padding: 0.3rem 0;
+}
+.menus {
+  margin-top: 0.5rem;
+  height: 2.5rem;
+  position: relative;
+  text-align: center;
+}
+.menus .rules {
+  position: absolute;
+  left: 0.5rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  border: 1px solid #dddddd;
+  font-size: 0.7rem;
+  border-radius: 50%;
+  line-height: 1.2;
+  box-sizing: border-box;
+  padding: 0.4rem;
+}
+.menus .redpacket-history {
+  position: absolute;
+  right: 0.5rem;
+  height: 2.5rem;
+  width: 2.5rem;
+  border: 1px solid #dddddd;
+  font-size: 0.7rem;
+  border-radius: 50%;
+  line-height: 1.2;
+  box-sizing: border-box;
+  padding: 0.4rem;
+}
+.redpacket {
+  position: relative;
+  margin-left: 0.8rem;
+  margin-right: 0.8rem;
+  margin-top: 1rem;
+  background-color: #f1f1f1;
+  text-align: center;
+  font-size: 0.6rem;
+  height: 110vw;
+  margin-bottom: 3.5rem;
+  box-sizing: border-box;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 7px 10px 11px #eee;
+}
+.redpacket .head {
+  padding-top: 3rem;
+  background-color: #c96148;
+  position: relative;
+}
+.redpacket .head .countdown {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  font-size: 1rem;
+  color: #fff;
+}
+.redpacket .record-top {
+  position: relative;
+}
+.redpacket .record-top .record-avatar {
+  position: absolute;
+  width: 2.5rem;
+  height: 2.5rem;
+  top: 0.9rem;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 3px solid #e1caaa;
+  box-sizing: content-box;
+  border-radius: 3px;
+}
+.redpacket .record-top .record-top-bg {
+  width: 100%;
+}
+.redpacket .record-top .nickname {
+  padding: 0.4rem 0;
+  text-align: center;
+}
+.redpacket .qiang-state {
+  width: 100%;
+  margin-top: 1.1rem;
+}
+.redpacket .btns {
+  font-size: 0;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  border-top: 1px solid #ddd;
+}
+.redpacket .btns > div {
+  display: inline-block;
+  width: 33.33%;
+  line-height: 2.5rem;
+  font-size: 0.7rem;
+  border-left: 1px solid #ddd;
+}
+.redpacket .btns > div:first-child {
+  border: none;
+}

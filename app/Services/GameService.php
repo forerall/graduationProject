@@ -131,7 +131,7 @@ class GameService
         $money = intval($money);
         $room = Room::findOrFail($room_id);
         if ($room->min > $money || $room->max < $money) {
-            return Output::Fail('金额不符合房间要求');
+            return Output::Fail('金额不符合要求');
         }
         $user = User::findOrFail($user_id);
         if ($user->balance < $money) {
@@ -216,13 +216,13 @@ class GameService
                     $this->balanceService->chou($user->id, intval($money * 3 / 100), '代理佣金');
                 }
             }
-
+            $cs = 5;
             $p = new Packet();
             $p->user_id = $user_id;
             $p->room_id = $room_id;
             $p->packet_money = $money;
             $p->money = intval($money * (100 - $cs) / 100);//抽成
-            $p->chou = intval($money * $pingtai / 100);//抽成
+            $p->chou = 0;//intval($money * $pingtai / 100);//抽成
             $p->lei = intval($lei);
             $p->packets = $packets;
             $p->peilv = $room->peilv;
@@ -257,9 +257,9 @@ class GameService
         ];
 
         $packet = Packet::findOrFail($packet_id);
-        $peilv = isset($pp[$packet->packets]) ? $pp[$packet->packets] : 1.2;
+        $peilv = $packet->packets;
         if ($packet->packets <= $packet->got) {
-            return Output::Fail('红包已抢空');
+            return Output::Fail('手慢了，红包已抢完');
         }
         if ($packet->state == 1) {
             return Output::Fail('红包已过期');
@@ -280,55 +280,61 @@ class GameService
             if (Qiang::where('user_id', $user_id)->where('packet_id', $packet_id)->count() > 0) {
                 throw new \Exception('已抢过红包');
             }
-            $packet->got++;
             $remain_money = $packet->money - $packet->got_money - ($packet->packets - $packet->got)*mt_rand(1,5);//可抢金额
 
-            $setting = Setting::firstOrNew(['key' => 'zb']);
-            if ($setting->value > 0 && $user->rate == 0) {
-                $user->rate = max(1, 95 - $setting->value/10);
-            }
-            $user->rate += 5;//$packet->packets/2;
-            $r = mt_rand(1, 20);
-            if ($packet->max_packet == $packet->got) {
-                $r = mt_rand(20, 35);
-            }
-
-            $leiRate = mt_rand(1, 100);
-            if ($user->rate > 0 && $leiRate > $user->rate && $packet->lei > -1 && $packet->lei < 10) {
-
-                //有设置胜率
-                //输
-                $money = intval($remain_money / ($packet->packets - $packet->got + 1) * $r / 10);
-                //$money = mt_rand(1, $remain_money * mt_rand(1, 5) / 10);
-                $money = strval($money);
-                $len = strlen($money);
-                $money[$len - 1] = intval($packet->lei);
-                if ($money == 0) {
-                    $money = mt_rand(1, 9);
-                }
-//                if($user->id==5){
-//                    Log::info('随机数：'.$r.'金额：'.$money);
+//            $setting = Setting::firstOrNew(['key' => 'zb']);
+//            if ($setting->value > 0 && $user->rate == 0) {
+//                $user->rate = max(1, 95 - $setting->value/10);
+//            }
+//            $user->rate += 5;//$packet->packets/2;
+//            $r = mt_rand(1, 20);
+//            if ($packet->max_packet == $packet->got) {
+//                $r = mt_rand(20, 35);
+//            }
+//
+//            $leiRate = mt_rand(1, 100);
+//            if ($user->rate > 0 && $leiRate > $user->rate && $packet->lei > -1 && $packet->lei < 10) {
+//
+//                //有设置胜率
+//                //输
+//                $money = intval($remain_money / ($packet->packets - $packet->got + 1) * $r / 10);
+//                //$money = mt_rand(1, $remain_money * mt_rand(1, 5) / 10);
+//                $money = strval($money);
+//                $len = strlen($money);
+//                $money[$len - 1] = intval($packet->lei);
+//                if ($money == 0) {
+//                    $money = mt_rand(1, 9);
 //                }
-                if ($money > $remain_money) {
-                    $money = $remain_money;
-                }
+////                if($user->id==5){
+////                    Log::info('随机数：'.$r.'金额：'.$money);
+////                }
+//                if ($money > $remain_money) {
+//                    $money = $remain_money;
+//                }
+//
+//
+//            } else {
+//                //$money = mt_rand(1, $remain_money * mt_rand(1, 5) / 10);
+//                $money = intval($remain_money / ($packet->packets - $packet->got + 1) * $r / 10);
+//                $money_str = substr($money, -1);
+//                if (strrpos($money_str, strval($packet->lei)) !== false) {
+//                    $money--;
+//                    $money = max(2, $money);
+//                }
+//                $money = max(1, $money);
+//                if ($money > $remain_money) {
+//                    $money = $remain_money;
+//                }
+//            }
 
-
-            } else {
-                //$money = mt_rand(1, $remain_money * mt_rand(1, 5) / 10);
-                $money = intval($remain_money / ($packet->packets - $packet->got + 1) * $r / 10);
-                $money_str = substr($money, -1);
-                if (strrpos($money_str, strval($packet->lei)) !== false) {
-                    $money--;
-                    $money = max(2, $money);
-                }
-                $money = max(1, $money);
-                if ($money > $remain_money) {
-                    $money = $remain_money;
-                }
+            $r = mt_rand(1, 20);
+            $money = intval($remain_money / ($packet->packets - $packet->got) * $r / 10);
+            $money = max(1, $money);
+            if ($money > $remain_money) {
+                $money = $remain_money;
             }
-
             $money = intval($money);
+            $packet->got++;
             //最后一包
             if ($packet->got == $packet->packets) {
                 $money = $remain_money;
@@ -343,13 +349,13 @@ class GameService
             $xiaobao = [1111, 2222, 3333, 4444, 5555, 6666, 7777, 8888, 9999];
             $dabao = [11111, 22222, 33333, 44444, 55555, 66666, 77777, 88888, 99999];
             if (in_array($money, $xiaobao1)) {
-                $baozi = 3;
-            }
-            if (in_array($money, $xiaobao)) {
                 $baozi = 1;
             }
-            if (in_array($money, $dabao)) {
+            if (in_array($money, $xiaobao)) {
                 $baozi = 2;
+            }
+            if (in_array($money, $dabao)) {
+                $baozi = 3;
             }
             if (in_array($money, [520, 1314])) {
                 $baozi = 4;

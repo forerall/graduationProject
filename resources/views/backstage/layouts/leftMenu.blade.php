@@ -135,12 +135,6 @@
         </a>
     </li>
     <li>
-        <a href="/backstage/zb">
-            <i class="icon-credit-card"></i>
-            累点控制
-        </a>
-    </li>
-    <li>
         <a href="/backstage/admin">
             <i class="icon-credit-card"></i>
             管理员

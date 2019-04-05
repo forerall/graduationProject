@@ -15,7 +15,12 @@ class User extends Authenticatable
 
     protected $table = 'g_users';
     protected $guarded = [];
-    protected $appends = ['balance_str', 'avatar_url', 'proxy_str'];
+    protected $appends = [
+        'balance_str',
+        'avatar_url',
+        'proxy_str',
+        'recom_code',
+    ];
     protected $hidden = [
         'password', 'remember_token', 'pay_password',
     ];
@@ -25,9 +30,12 @@ class User extends Authenticatable
         1 => '股东代理',
         2 => '普通代理',
     ];
-    public function room(){
+
+    public function room()
+    {
         return $this->belongsTo(Room::class);
     }
+
     //passport用户查找方法
     public function findForPassport($username)
     {
@@ -44,6 +52,11 @@ class User extends Authenticatable
         $this->balance = CommonService::decimalToIntMoney($decimalMoney);
     }
 
+    public function getRecomCodeAttribute()
+    {
+        return '1' . str_pad($this->id, 5, '0', STR_PAD_LEFT);
+    }
+
     public function getProxyStrAttribute()
     {
         if (array_key_exists($this->proxy, self::$proxyArray)) {
@@ -51,7 +64,9 @@ class User extends Authenticatable
         }
         return '';
     }
-    public function getAvatarAttribute($avatar){
+
+    public function getAvatarAttribute($avatar)
+    {
         if (empty($avatar)) {
             return asset('/images/avatar.png');
         }

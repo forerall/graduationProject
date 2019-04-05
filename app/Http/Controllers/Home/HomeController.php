@@ -35,16 +35,112 @@ class HomeController extends Controller
         $this->gameService = $gameService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $rooms = $this->gameService->getRooms();
         $sum = $rooms->sum('people');
         $config = Setting::firstOrNew(['key' => 'gg']);
-        return view('home.home')
+        return view('redpacket.index')
             ->with('sum', $sum)
             ->with('gg', $config->value)
             ->with('user', Auth::user());
     }
+    public function user(Request $request)
+    {
+        $user = Auth::user();
+
+        $str = date('Y-m-d 03:00:00', time());
+        $h = date('h', time());
+        $t = Carbon::createFromFormat('Y-m-d H:i:s', $str);
+        if ($h >= 3) {
+            $t2 = Carbon::createFromFormat('Y-m-d H:i:s', $str)->addDays(1);
+        } else {
+            $t2 = Carbon::createFromFormat('Y-m-d H:i:s', $str)->subDay(1);
+        }
+        $user->packet = Packet::where('user_id', $user->id)->whereBetween('created_at', [$t, $t2])->count();
+        $user->packet_money = Packet::where('user_id', $user->id)->whereBetween('created_at', [$t, $t2])->sum('packet_money') / 100;
+
+        return view('redpacket.user')
+            ->with('user', $user);
+    }
+
+    public function sl(Request $request){
+        $user = Auth::user();
+        return view('redpacket.sl')
+            ->with('user', $user);
+    }
+    public function wj(Request $request){
+        $user = Auth::user();
+        return view('redpacket.wj')
+            ->with('user', $user);
+    }
+    public function code(Request $request){
+        $user = Auth::user();
+        return view('redpacket.code')
+            ->with('user', $user);
+    }
+
+    //发红包
+    public function sendPacket(Request $request)
+    {
+        $user_id = Auth::id();
+        $money = intval($request->get('money') * 100);
+        $room_id = $request->get('room_id',1);
+        $lei = $request->get('lei');
+        $msg = $request->get('msg','');
+        $packets = 10;//$request->get('packets');
+        if ($packets < 5 || $packets > 10) {
+            return Output::Fail('包数5-10');
+        }
+        return $this->gameService->putPacket($room_id, $user_id, $money, $lei, $packets, $msg);
+    }
+
+    //抢红包
+    public function getPacket(Request $request)
+    {
+        $user_id = Auth::id();
+        $packet_id = $request->get('packet_id');
+        $packet = Packet::findOrFail($packet_id);
+        if ($request->get('test')) {
+            $status = "已领取{$packet->got}/{$packet->packets}个，共{$packet->got_money_str}/{$packet->money_str}元";
+            $result = Output::Success('', [
+                'status' => 0,
+                'owner' => $packet->user ? $packet->user : GameService::systemUser(),
+                'get' => '',
+                'others' => Qiang::with('user')->where('money', '>', 0)->where('packet_id', $packet_id)->get(),
+                'status' => $status,
+            ]);
+            return $result;
+        }
+
+        $result = $this->gameService->getPacket($user_id, $packet_id);
+        $packet = Packet::findOrFail($packet_id);
+        if ($result['errCode'] == 0) {
+            $status = "已领取{$packet->got}/{$packet->packets}个，共{$packet->got_money_str}/{$packet->money_str}元";
+            $result = Output::Success('', [
+                'status' => 0,
+                'owner' => $packet->user ? $packet->user : GameService::systemUser(),
+                'get' => $result['data'],
+                'others' => Qiang::with('user')->where('money', '>', 0)->where('packet_id', $packet_id)->get(),
+                'status' => $status,
+            ]);
+        }
+        return $result;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public function roomList2(Request $request)
@@ -79,12 +175,13 @@ class HomeController extends Controller
             ->with('room', $room)
             ->with('user', $user);
     }
+
     public function pass(Request $request)
     {
         $id = $request->get('id');
         $room = Room::findOrFail($id);
         $pass = $request->get('pass');
-        if($pass==$room->password){
+        if ($pass == $room->password) {
             return Output::Success('');
         }
         return Output::Fail('密码错误');
@@ -160,54 +257,7 @@ class HomeController extends Controller
         }
     }
 
-    //发红包
-    public function sendPacket(Request $request)
-    {
-        $user_id = Auth::id();
-        $money = intval($request->get('money') * 100);
-        $room_id = $request->get('room_id');
-        $lei = $request->get('lei');
-        $msg = $request->get('msg');
-        $packets = $request->get('packets');
-        if ($packets < 5 || $packets > 10) {
-            return Output::Fail('包数5-10');
-        }
-        return $this->gameService->putPacket($room_id, $user_id, $money, $lei, $packets, $msg);
-    }
 
-    //抢红包
-    public function getPacket(Request $request)
-    {
-        $user_id = Auth::id();
-        $packet_id = $request->get('packet_id');
-        $packet = Packet::findOrFail($packet_id);
-        if ($request->get('test')) {
-            $status = "已领取{$packet->got}/{$packet->packets}个，共{$packet->got_money_str}/{$packet->money_str}元";
-            $result = Output::Success('', [
-                'status' => 0,
-                'owner' => $packet->user ? $packet->user : GameService::systemUser(),
-                'get' => '',
-                'others' => Qiang::with('user')->where('money', '>', 0)->where('packet_id', $packet_id)->get(),
-                'status' => $status,
-            ]);
-            return $result;
-        }
-
-        $result = $this->gameService->getPacket($user_id, $packet_id);
-        $packet = Packet::findOrFail($packet_id);
-        if ($result['errCode'] == 0) {
-
-            $status = "已领取{$packet->got}/{$packet->packets}个，共{$packet->got_money_str}/{$packet->money_str}元";
-            $result = Output::Success('', [
-                'status' => 0,
-                'owner' => $packet->user ? $packet->user : GameService::systemUser(),
-                'get' => $result['data'],
-                'others' => Qiang::with('user')->where('money', '>', 0)->where('packet_id', $packet_id)->get(),
-                'status' => $status,
-            ]);
-        }
-        return $result;
-    }
 
     //余额日志
     public function balanceLog(Request $request)
@@ -223,24 +273,7 @@ class HomeController extends Controller
     }
 
 
-    public function user(Request $request)
-    {
-        $user = Auth::user();
 
-        $str = date('Y-m-d 03:00:00', time());
-        $h = date('h', time());
-        $t = Carbon::createFromFormat('Y-m-d H:i:s', $str);
-        if ($h >= 3) {
-            $t2 = Carbon::createFromFormat('Y-m-d H:i:s', $str)->addDays(1);
-        } else {
-            $t2 = Carbon::createFromFormat('Y-m-d H:i:s', $str)->subDay(1);
-        }
-        $user->packet = Packet::where('user_id', $user->id)->whereBetween('created_at', [$t, $t2])->count();
-        $user->packet_money = Packet::where('user_id', $user->id)->whereBetween('created_at', [$t, $t2])->sum('packet_money') / 100;
-
-        return view('home.user')
-            ->with('user', $user);
-    }
 
     public function kf(Request $request)
     {
@@ -277,6 +310,7 @@ class HomeController extends Controller
         $user_id = Auth::id();
         $list = $this->gameService->getSubUserList($request, $user_id);
         $qrCodeUrl = asset('/?uid=' . $user_id);
+        $qrCodeUrl = 'http://www.nannenwang.cn?uid=' . $user_id;
         return view('home.xiaxian')
             ->with('list', $list)
             ->with('user', Auth::user())

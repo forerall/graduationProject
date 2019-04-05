@@ -52,13 +52,6 @@
                                        class="col-xs-12 col-sm-6">
                             </div>
                         </div>
-                        <div class="space-2"></div>
-                        <div class="form-group">
-                            <label class="control-label col-xs-12 col-sm-1 no-padding-right" for="phone">胜率(0-100)</label>
-                            <div class="col-xs-12 col-sm-11">
-                                <input type="text" name="rate" value="{{$item->rate}}" class="col-xs-12 col-sm-6">
-                            </div>
-                        </div>
                         @if($item->type==1)
                         <div class="space-2"></div>
                         <div class="form-group">

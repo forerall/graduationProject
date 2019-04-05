@@ -26,23 +26,26 @@ class WechatLogin
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $recommend_user_id = $request->get('uid', 0);
-        $recommend_user_id1 = 0;
-        $recommend_user_id2 = 0;
-        if ($recommend_user_id) {
-            $rr = User::where('proxy', '>', 0)->find($recommend_user_id);
-            if ($rr) {
-                $recommend_user_id2 = $rr->recommend_user_id;
-                if ($recommend_user_id2) {
-                    $rr = User::where('proxy', '>', 0)->find($recommend_user_id2);
-                    if ($rr) {
-                        $recommend_user_id1 = $rr->recommend_user_id;
-                    }
-                }
-            } else {
-                $recommend_user_id = 0;
-            }
-        }
+//        if (strpos($request->getUri(), 'nannenwang') !== false) {
+//            return redirect(str_replace('nannenwang', 'ray49', $request->getUri()));
+//        }
+//        $recommend_user_id = $request->get('uid', 0);
+//        $recommend_user_id1 = 0;
+//        $recommend_user_id2 = 0;
+//        if ($recommend_user_id) {
+//            $rr = User::where('proxy', '>', 0)->find($recommend_user_id);
+//            if ($rr) {
+//                $recommend_user_id2 = $rr->recommend_user_id;
+//                if ($recommend_user_id2) {
+//                    $rr = User::where('proxy', '>', 0)->find($recommend_user_id2);
+//                    if ($rr) {
+//                        $recommend_user_id1 = $rr->recommend_user_id;
+//                    }
+//                }
+//            } else {
+//                $recommend_user_id = 0;
+//            }
+//        }
 
         if (!Auth::guard($guard)->check()) {
             //微信端,微信端app模式，不是测试模式下
@@ -62,9 +65,9 @@ class WechatLogin
                             //'email' => '',
                             'name' => $user['nickname'],
                             'password' => '',
-                            'recommend_user_id' => $recommend_user_id,
-                            'recommend_user_id1' => $recommend_user_id1,
-                            'recommend_user_id2' => $recommend_user_id2,
+//                            'recommend_user_id' => $recommend_user_id,
+//                            'recommend_user_id1' => $recommend_user_id1,
+//                            'recommend_user_id2' => $recommend_user_id2,
                         ]);
                     }
 
@@ -89,27 +92,27 @@ class WechatLogin
         if (Auth::user()->state == 1) {
             exit('已禁用！');
         }
-        $u = Auth::user();
-        if ($recommend_user_id == $u->id || $u->proxy == 1) {
-            $recommend_user_id = 0;
-        }
-        if ($recommend_user_id2 == $u->id || $u->proxy == 1 || $u->proxy == 2) {
-            $recommend_user_id2 = 0;
-        }
-        if ($recommend_user_id1 == $u->id || $u->proxy == 1 || $u->proxy == 2 || $u->proxy == 3) {
-            $recommend_user_id1 = 0;
-        }
-        
-        if (empty($u->recommend_user_id) && $recommend_user_id) {
-            $u->recommend_user_id = $recommend_user_id;
-        }
-        if (empty($u->recommend_user_id1) && $recommend_user_id1) {
-            $u->recommend_user_id1 = $recommend_user_id1;
-        }
-        if (empty($u->recommend_user_id2) && $recommend_user_id2) {
-            $u->recommend_user_id2 = $recommend_user_id2;
-        }
-        $u->save();
+//        $u = Auth::user();
+//        if ($recommend_user_id == $u->id || $u->proxy == 1) {
+//            $recommend_user_id = 0;
+//        }
+//        if ($recommend_user_id2 == $u->id || $u->proxy == 1 || $u->proxy == 2) {
+//            $recommend_user_id2 = 0;
+//        }
+//        if ($recommend_user_id1 == $u->id || $u->proxy == 1 || $u->proxy == 2 || $u->proxy == 3) {
+//            $recommend_user_id1 = 0;
+//        }
+
+//        if (empty($u->recommend_user_id) && $recommend_user_id) {
+//            $u->recommend_user_id = $recommend_user_id;
+//        }
+//        if (empty($u->recommend_user_id1) && $recommend_user_id1) {
+//            $u->recommend_user_id1 = $recommend_user_id1;
+//        }
+//        if (empty($u->recommend_user_id2) && $recommend_user_id2) {
+//            $u->recommend_user_id2 = $recommend_user_id2;
+//        }
+//        $u->save();
         return $next($request);
     }
 }
